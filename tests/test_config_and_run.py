@@ -99,3 +99,20 @@ def test_example_configs_are_valid():
 
     for path in (Path(__file__).parents[1] / "examples").glob("*.json"):
         config.load(path)  # raises ConfigError if a setting is unknown or invalid
+
+
+def test_run_without_install_script(qualtrics_run, tmp_path):
+    """run_survey_stats.py works from another folder, using this repo's src/."""
+    import subprocess
+    import sys
+    from pathlib import Path
+
+    script = Path(__file__).parents[1] / "run_survey_stats.py"
+    cfg = {"source": {"type": "qualtrics_run", "path": str(qualtrics_run)},
+           "items": {"columns": ["Q2_*"]}, "plots": {"enabled": False},
+           "output": {"dir": "out"}}
+    (tmp_path / "c.json").write_text(json.dumps(cfg))
+    done = subprocess.run([sys.executable, str(script), "run", "c.json"], cwd=tmp_path,
+                          capture_output=True, text=True, check=False)
+    assert done.returncode == 0, done.stderr
+    assert (tmp_path / "out" / "report.docx").exists()

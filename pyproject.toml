@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "survey-stats"
+version = "0.1.0"
+description = "Group-comparison statistics, error-bar plots and Word tables for wide survey data"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "pandas>=2.0",
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "statsmodels>=0.14",
+  "matplotlib>=3.7",
+  "python-docx>=1.1",
+]
+
+[project.optional-dependencies]
+spss = ["pyreadstat>=1.2"]
+excel = ["openpyxl>=3.1"]
+all = ["pyreadstat>=1.2", "openpyxl>=3.1"]
+dev = [
+  "pytest>=8.0",
+  "ruff>=0.5",
+  "pyreadstat>=1.2",
+  "openpyxl>=3.1",
+]
+
+[project.scripts]
+survey-stats = "survey_stats.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+# Same pinned rule set as qualtrics-analysis, so a ruff upgrade cannot change what CI
+# enforces on its own.
+select = [
+  "E4", "E7", "E9",  # pycodestyle: imports, statements, syntax
+  "F",               # pyflakes
+  "I",               # isort: import ordering
+  "UP",              # pyupgrade
+  "B",               # flake8-bugbear
+  "BLE",             # flake8-blind-except
+  "DTZ",             # flake8-datetimez
+  "PIE",             # flake8-pie
+  "RUF",             # ruff-specific
+  "FURB",            # refurb
+  "EXE",             # flake8-executable
+]
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

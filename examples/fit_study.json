@@ -1,0 +1,57 @@
+{
+  "_about": "Example: impact ratings by Sex and Fit, from a qualtrics-analysis run. Keys starting with '_' are comments.",
+  "source": {
+    "type": "qualtrics_run",
+    "path": "../qualtrics-analysis/runs/fit_study"
+  },
+  "items": {
+    "_columns": "Every column of the impact-rating matrix; *_TEXT columns are never items.",
+    "columns": ["Q2.7_*"],
+    "order": [
+      "Standing",
+      "Breathing normally",
+      "Breathing heavy / hard",
+      "Sitting in a seat",
+      "Walking",
+      "Running",
+      "Climb in and out of vehicle"
+    ]
+  },
+  "outcome": {
+    "scale": [1, 5],
+    "axis_label": "Mean Impact Rating",
+    "_exclude_codes": "N/A codes come from column_map.json automatically; list extra ones here.",
+    "exclude_codes": []
+  },
+  "factors": [
+    {
+      "column": "Q1.3",
+      "name": "Sex",
+      "levels": ["Female", "Male"],
+      "colors": {"Female": "#ff7f0e", "Male": "#1f77b4"}
+    },
+    {
+      "column": "Q1.15",
+      "name": "Fit",
+      "levels": ["Poor / Fair", "Good / Excellent"],
+      "wrap": 10
+    }
+  ],
+  "stats": {
+    "alpha": 0.05,
+    "p_adjust": "none"
+  },
+  "plots": {
+    "factor_title": "Impact by {factor}",
+    "interaction_title": "Impact by {a} & {b}",
+    "fig_width": 13,
+    "panel_height": 4
+  },
+  "output": {
+    "dir": "output/fit_study",
+    "word": {
+      "file": "fit_study_report.docx",
+      "plot_width_in": 7.0
+    }
+  }
+}

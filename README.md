@@ -16,6 +16,27 @@ survey-stats validate fit_study.json
 survey-stats run fit_study.json
 ```
 
+### Without installing
+
+If you can't install packages or create a virtual environment, download the repo (or
+**Code → Download ZIP** and unzip it) and use `run_survey_stats.py`. It's a plain
+Python file that runs the code in `src/`, so nothing is installed and no executables are
+created:
+
+```bash
+python <path to>/Survey-Stats/run_survey_stats.py init --type qualtrics_run --path runs/fit_study -o fit_study.json
+python <path to>/Survey-Stats/run_survey_stats.py validate fit_study.json
+python <path to>/Survey-Stats/run_survey_stats.py run fit_study.json
+```
+
+Python needs the libraries in `pyproject.toml`: pandas, numpy, scipy, statsmodels,
+matplotlib and python-docx, plus pyreadstat for `.sav` and openpyxl for `.xlsx`. To check
+which are already available:
+
+```bash
+python -c "import pandas, numpy, scipy, statsmodels, matplotlib, docx; print('all present')"
+```
+
 ## Contents
 
 - [Data sources](#data-sources) · [Configuration](#configuration) ·
